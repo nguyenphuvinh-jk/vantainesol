@@ -33,65 +33,76 @@
     <div class="row">
         <div class="col-4-xxxl col-12">
             <div class="card height-auto">
-                @if(isset($banglai_edit))
+                @if (isset($banglai_edit))
                     <div class="card-body">
-                        @foreach($banglai_edit as $key => $bl_edit)
-                        <div class="heading-layout1">
-                            <div class="item-title">
-                                <h3>Sửa bằng lái</h3>
-                                @include('components.errors')
-                            </div>
-                        </div>
-                        <form class="new-added-form" action="{{URL::to('/quan-ly-tai-xe/bang-lai/capnhat/'.$bl_edit->banglai_id)}}" method="post">
-                            @csrf
-                            <div class="row">
-                                <div class="col-xl-12 col-lg-6 col-12 form-group">
-                                    <label>Tên bằng lái </label>
-                                    <input type="text" placeholder="" class="form-control" name="tenbanglai" value="{{$bl_edit->tenbanglai}}">
-                                    @if ($errors->has('tenbanglai'))
-                                        <p class="text-danger font-italic">{{ $errors->first('tenbanglai') }}</p>
-                                    @endif
-                                </div>
-                                <div class="col-xl-12 col-lg-6 col-12 form-group">
-                                    <label>Tên tài xế </label>
-                                    <select class="select2" name="taixe_id">
-                                        <option value="">Chọn tài xế</option>
-                                        @foreach($taixe as $key => $tx)
-                                            <option value="{{$tx->taixe_id}}" {{$bl_edit->taixe_id == $tx->taixe_id ? 'selected': ''}}>{{$tx->ten_taixe}}</option>
-                                        @endforeach
-                                    </select>
-                                    @if ($errors->has('taixe_id'))
-                                        <p class="text-danger font-italic">{{ $errors->first('taixe_id') }}</p>
-                                    @endif
-                                </div>
-                                <div class="col-xl-12 col-lg-6 col-12 form-group">
-                                    <label>Ngày cấp</label>
-                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker" data-position='bottom right' name="ngaycap" value="{{ \Carbon\Carbon::parse($bl_edit->ngaycap)->format('d/m/Y') }}">
-                                    <i class="far fa-calendar-alt"></i>
-                                    @if ($errors->has('ngaycap'))
-                                        <p class="text-danger font-italic">{{ $errors->first('ngaycap') }}</p>
-                                    @endif
-                                </div>
-                                <div class="col-xl-12 col-lg-6 col-12 form-group">
-                                    <label>Ngày hết hạn</label>
-                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker" data-position='bottom right' name="ngayhethan" value="{{ \Carbon\Carbon::parse($bl_edit->ngayhethan)->format('d/m/Y') }}">
-                                    <i class="far fa-calendar-alt"></i>
-                                    @if ($errors->has('ngayhethan'))
-                                        <p class="text-danger font-italic">{{ $errors->first('ngayhethan') }}</p>
-                                    @endif
-                                </div>
-                                <div class="col-xl-12 col-lg-6 col-12 form-group">
-                                    <label>Đơn vị cấp</label>
-                                    <input type="text" placeholder="" class="form-control" name="donvicap" value="{{$bl_edit->donvicap}}">
-                                    @if ($errors->has('donvicap'))
-                                        <p class="text-danger font-italic">{{ $errors->first('donvicap') }}</p>
-                                    @endif
-                                </div>
-                                <div class="col-12 form-group mg-t-8">
-                                    <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Lưu</button>
+                        @foreach ($banglai_edit as $key => $bl_edit)
+                            <div class="heading-layout1">
+                                <div class="item-title">
+                                    <h3>Sửa bằng lái</h3>
+                                    @include('components.errors')
                                 </div>
                             </div>
-                        </form>
+                            <form class="new-added-form"
+                                action="{{ URL::to('/quan-ly-tai-xe/bang-lai/capnhat/' . $bl_edit->banglai_id) }}"
+                                method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-6 col-12 form-group">
+                                        <label>Tên bằng lái </label>
+                                        <input type="text" placeholder="" class="form-control" name="tenbanglai"
+                                            value="{{ $bl_edit->tenbanglai }}">
+                                        @if ($errors->has('tenbanglai'))
+                                            <p class="text-danger font-italic">{{ $errors->first('tenbanglai') }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-xl-12 col-lg-6 col-12 form-group">
+                                        <label>Tên tài xế </label>
+                                        <select class="select2" name="taixe_id">
+                                            <option value="">Chọn tài xế</option>
+                                            @foreach ($taixe as $key => $tx)
+                                                <option value="{{ $tx->taixe_id }}"
+                                                    {{ $bl_edit->taixe_id == $tx->taixe_id ? 'selected' : '' }}>
+                                                    {{ $tx->ten_taixe }}</option>
+                                            @endforeach
+                                        </select>
+                                        @if ($errors->has('taixe_id'))
+                                            <p class="text-danger font-italic">{{ $errors->first('taixe_id') }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-xl-12 col-lg-6 col-12 form-group">
+                                        <label>Ngày cấp</label>
+                                        <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker"
+                                            data-position='bottom right' name="ngaycap"
+                                            value="{{ \Carbon\Carbon::parse($bl_edit->ngaycap)->format('d/m/Y') }}">
+                                        <i class="far fa-calendar-alt"></i>
+                                        @if ($errors->has('ngaycap'))
+                                            <p class="text-danger font-italic">{{ $errors->first('ngaycap') }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-xl-12 col-lg-6 col-12 form-group">
+                                        <label>Ngày hết hạn</label>
+                                        <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker"
+                                            data-position='bottom right' name="ngayhethan"
+                                            value="{{ \Carbon\Carbon::parse($bl_edit->ngayhethan)->format('d/m/Y') }}">
+                                        <i class="far fa-calendar-alt"></i>
+                                        @if ($errors->has('ngayhethan'))
+                                            <p class="text-danger font-italic">{{ $errors->first('ngayhethan') }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-xl-12 col-lg-6 col-12 form-group">
+                                        <label>Đơn vị cấp</label>
+                                        <input type="text" placeholder="" class="form-control" name="donvicap"
+                                            value="{{ $bl_edit->donvicap }}">
+                                        @if ($errors->has('donvicap'))
+                                            <p class="text-danger font-italic">{{ $errors->first('donvicap') }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-12 form-group mg-t-8">
+                                        <button type="submit"
+                                            class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Lưu</button>
+                                    </div>
+                                </div>
+                            </form>
                         @endforeach
                     </div>
                 @else
@@ -102,7 +113,7 @@
                                 @include('components.errors')
                             </div>
                         </div>
-                        <form class="new-added-form" action="{{URL::to('/quan-ly-tai-xe/bang-lai/luu')}}" method="post">
+                        <form class="new-added-form" action="{{ URL::to('/quan-ly-tai-xe/bang-lai/luu') }}" method="post">
                             @csrf
                             <div class="row">
                                 <div class="col-xl-12 col-lg-6 col-12 form-group">
@@ -116,8 +127,8 @@
                                     <label>Tên tài xế </label>
                                     <select class="select2" name="taixe_id">
                                         <option value="">Chọn tài xế</option>
-                                        @foreach($taixe as $key => $tx)
-                                            <option value="{{$tx->taixe_id}}">{{$tx->ten_taixe}}</option>
+                                        @foreach ($taixe as $key => $tx)
+                                            <option value="{{ $tx->taixe_id }}">{{ $tx->ten_taixe }}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('taixe_id'))
@@ -126,7 +137,8 @@
                                 </div>
                                 <div class="col-xl-12 col-lg-6 col-12 form-group">
                                     <label>Ngày cấp</label>
-                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker" data-position='bottom right' name="ngaycap">
+                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker"
+                                        data-position='bottom right' name="ngaycap">
                                     <i class="far fa-calendar-alt"></i>
                                     @if ($errors->has('ngaycap'))
                                         <p class="text-danger font-italic">{{ $errors->first('ngaycap') }}</p>
@@ -134,7 +146,8 @@
                                 </div>
                                 <div class="col-xl-12 col-lg-6 col-12 form-group">
                                     <label>Ngày hết hạn</label>
-                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker" data-position='bottom right' name="ngayhethan">
+                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker"
+                                        data-position='bottom right' name="ngayhethan">
                                     <i class="far fa-calendar-alt"></i>
                                     @if ($errors->has('ngayhethan'))
                                         <p class="text-danger font-italic">{{ $errors->first('ngayhethan') }}</p>
@@ -148,7 +161,8 @@
                                     @endif
                                 </div>
                                 <div class="col-12 form-group mg-t-8">
-                                    <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Lưu</button>
+                                    <button type="submit"
+                                        class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Lưu</button>
                                 </div>
                             </div>
                         </form>
@@ -167,62 +181,69 @@
                     <form class="mg-b-20">
                         <div class="row gutters-8 d-flex justify-content-end">
                             <div class="col-lg-2 col-12 form-group">
-                                <a href="#" class="fw-btn-fill btn-gradient-yellow text-center text-white" id="btn_banglai">Tải xuống</a>
+                                <a href="#" class="fw-btn-fill btn-gradient-yellow text-center text-white"
+                                    id="btn_banglai">Tải xuống</a>
                             </div>
                             <div class="col-lg-4 col-12 form-group">
                             </div>
                             <div class="col-lg-6 col-12 form-group">
-                                <input type="text" placeholder="Tìm kiếm ...." class="form-control" id="banglai_search">
+                                <input type="text" placeholder="Tìm kiếm..." class="form-control"
+                                    id="banglai_search">
                             </div>
                         </div>
                     </form>
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap" id="banglai_table">
                             <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>ID</th>
-                                <th>Tên bằng lái</th>
-                                <th>Tên tài xế</th>
-                                <th>Ngày cấp</th>
-                                <th>Ngày hết hạn</th>
-                                <th>Đơn vị cấp</th>
-                                <th>Thời hạn</th>
-                                <th class="noExl">Thao tác</th>
-                            </tr>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>ID</th>
+                                    <th>Tên bằng lái</th>
+                                    <th>Tên tài xế</th>
+                                    <th>Ngày cấp</th>
+                                    <th>Ngày hết hạn</th>
+                                    <th>Đơn vị cấp</th>
+                                    <th>Thời hạn</th>
+                                    <th class="noExl">Thao tác</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @php($i=1)
-                            @foreach($banglai as $key => $bl)
-                            <tr class="{{(strtotime($bl->ngayhethan) - strtotime(\Carbon\Carbon::today())/(24*60*60))<=30 ? 'bg-danger': ''}}">
-                                <td>{{$i++}}</td>
-                                <td>{{$bl->banglai_id}}</td>
-                                <td>{{$bl->tenbanglai}}</td>
-                                <td>{{$bl->ten_taixe}}</td>
-                                <td>{{ \Carbon\Carbon::parse($bl->ngaycap)->format('d/m/Y') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($bl->ngayhethan)->format('d/m/Y') }}</td>
-                                <td>{{$bl->donvicap}}</td>
-                                @if($bl->ngayhethan > \Carbon\Carbon::today())
-                                    <td><?php echo 'Còn '.floor(strtotime($bl->ngayhethan) - strtotime(\Carbon\Carbon::today())/(24*60*60)).' ngày' ?></td>
-                                @else
-                                    <td>Hết hạn</td>
-                                @endif
-                                <td class="noExl">
-                                    <div class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                           aria-expanded="false">
-                                            <span class="flaticon-more-button-of-three-dots"></span>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a onclick="return confirm('Có chắc muốn xoá chưa?')" class="dropdown-item" href="{{URL::to('/quan-ly-tai-xe/bang-lai/xoa/'.$bl->banglai_id)}}"><i
-                                                    class="fas fa-times text-orange-red"></i>Xóa</a>
-                                            <a class="dropdown-item" href="{{URL::to('/quan-ly-tai-xe/bang-lai/sua/'.$bl->banglai_id)}}"><i
-                                                    class="fas fa-cogs text-dark-pastel-green"></i>Sửa</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
+                                @php($i = 1)
+                                @foreach ($banglai as $key => $bl)
+                                    <tr <?php if (floor(strtotime($bl->ngayhethan) - strtotime(\Carbon\Carbon::today())) / (24 * 60 * 60) <= 30) {
+                                        echo "style='background-color: #EE6B6E'";
+                                    } ?>>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $bl->banglai_id }}</td>
+                                        <td>{{ $bl->tenbanglai }}</td>
+                                        <td>{{ $bl->ten_taixe }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($bl->ngaycap)->format('d/m/Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($bl->ngayhethan)->format('d/m/Y') }}</td>
+                                        <td>{{ $bl->donvicap }}</td>
+                                        @if ($bl->ngayhethan > \Carbon\Carbon::today())
+                                            <td><?php echo 'Còn ' . floor((strtotime($bl->ngayhethan) - strtotime(\Carbon\Carbon::today())) / (24 * 60 * 60)) . ' ngày'; ?></td>
+                                        @else
+                                            <td>Hết hạn</td>
+                                        @endif
+                                        <td class="noExl">
+                                            <div class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    <span class="flaticon-more-button-of-three-dots"></span>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a onclick="return confirm('Có chắc muốn xoá chưa?')"
+                                                        class="dropdown-item"
+                                                        href="{{ URL::to('/quan-ly-tai-xe/bang-lai/xoa/' . $bl->banglai_id) }}"><i
+                                                            class="fas fa-times text-orange-red"></i>Xóa</a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ URL::to('/quan-ly-tai-xe/bang-lai/sua/' . $bl->banglai_id) }}"><i
+                                                            class="fas fa-cogs text-dark-pastel-green"></i>Sửa</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -269,20 +290,18 @@
                     exportOptions: {
                         columns: 'th:not(:last-child)'
                     }
-                }
-                ]
+                }]
             });
 
             oTable.buttons('.buttonsToHide').nodes().addClass('hidden');
 
             $("#btn_banglai").on("click", function() {
-                oTable.button( '.buttons-excel' ).trigger();
+                oTable.button('.buttons-excel').trigger();
             });
 
-            $('#banglai_search').keyup(function(){
-                oTable.search($(this).val()).draw() ;
+            $('#banglai_search').keyup(function() {
+                oTable.search($(this).val()).draw();
             })
         }
     </script>
-
 @endsection
