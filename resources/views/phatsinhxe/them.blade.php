@@ -40,15 +40,16 @@
                             @include('components.errors')
                         </div>
                     </div>
-                    <form class="new-added-form" action="{{URL::to('/quan-ly-xe/cap-phat-nhien-lieu/them/luu')}}" method="post">
+                    <form class="new-added-form" action="{{ URL::to('/quan-ly-xe/cap-phat-nhien-lieu/them/luu') }}"
+                        method="post">
                         @csrf
                         <div class="row">
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Biển số xe</label>
                                 <select class="select2" name="xe_id">
                                     <option value="">Chọn biển số</option>
-                                    @foreach($xe as $key => $xe)
-                                        <option value="{{$xe->xe_id}}">{{$xe->biensoxe}}</option>
+                                    @foreach ($xe as $key => $xe)
+                                        <option value="{{ $xe->xe_id }}">{{ $xe->biensoxe }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('xe_id'))
@@ -57,21 +58,24 @@
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Số km đầu</label>
-                                <input type="text" placeholder="" class="form-control" name="km_batdau" value="{{old('km_batdau')}}">
+                                <input type="text" placeholder="" class="form-control" name="km_batdau"
+                                    value="{{ old('km_batdau') }}">
                                 @if ($errors->has('km_batdau'))
                                     <p class="text-danger font-italic">{{ $errors->first('km_batdau') }}</p>
                                 @endif
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Số km cuối</label>
-                                <input type="text" placeholder="" class="form-control" name="km_cuoi" value="{{old('km_cuoi')}}">
+                                <input type="text" placeholder="" class="form-control" name="km_cuoi"
+                                    value="{{ old('km_cuoi') }}">
                                 @if ($errors->has('km_cuoi'))
                                     <p class="text-danger font-italic">{{ $errors->first('km_cuoi') }}</p>
                                 @endif
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Ngày</label>
-                                <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker" data-position='bottom right' name="ngay" value="{{old('ngay')}}">
+                                <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker"
+                                    data-position='bottom right' name="ngay" value="{{ old('ngay') }}">
                                 <i class="far fa-calendar-alt"></i>
                                 @if ($errors->has('ngay'))
                                     <p class="text-danger font-italic">{{ $errors->first('ngay') }}</p>
@@ -79,44 +83,51 @@
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Cây xăng</label>
-                                <input type="text" placeholder="" class="form-control" name="cayxang" value="{{old('cayxang')}}">
+                                <input type="text" placeholder="" class="form-control" name="cayxang"
+                                    value="{{ old('cayxang') }}">
                                 @if ($errors->has('cayxang'))
                                     <p class="text-danger font-italic">{{ $errors->first('cayxang') }}</p>
                                 @endif
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Số lượng đổ</label>
-                                <input type="text" placeholder="" class="form-control" name="soluong" value="{{old('soluong')}}">
+                                <input type="text" placeholder="" class="form-control" name="soluong"
+                                    value="{{ old('soluong') }}">
                                 @if ($errors->has('soluong'))
                                     <p class="text-danger font-italic">{{ $errors->first('soluong') }}</p>
                                 @endif
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Đơn giá</label>
-                                <input type="text" placeholder="" class="form-control" name="dongia" value="{{old('dongia')}}">
+                                <input type="text" placeholder="" class="form-control" name="dongia"
+                                    value="{{ old('dongia') }}">
                                 @if ($errors->has('dongia'))
                                     <p class="text-danger font-italic">{{ $errors->first('dongia') }}</p>
                                 @endif
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Tổng tiền</label>
-                                <input type="text" placeholder="" class="form-control" name="thanhtien" value="{{old('thanhtien')}}">
+                                <input type="text" placeholder="" class="form-control" name="thanhtien"
+                                    value="{{ old('thanhtien') }}">
                                 @if ($errors->has('thanhtien'))
                                     <p class="text-danger font-italic">{{ $errors->first('thanhtien') }}</p>
                                 @endif
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Ghi chú </label>
-                                <input type="text" placeholder="" class="form-control" name="ghichu" value="{{old('ghichu')}}">
+                                <input type="text" placeholder="(Người trả tiền)" class="form-control" name="ghichu"
+                                    value="{{ old('ghichu') }}">
                                 @if ($errors->has('ghichu'))
                                     <p class="text-danger font-italic">{{ $errors->first('ghichu') }}</p>
                                 @endif
                             </div>
-                            @if(\Illuminate\Support\Facades\Auth::check())
-                                <input type="hidden" placeholder="" class="form-control" name="nguoixacnhan" value="{{\Illuminate\Support\Facades\Auth::user()->id}}">
+                            @if (\Illuminate\Support\Facades\Auth::check())
+                                <input type="hidden" placeholder="" class="form-control" name="nguoixacnhan"
+                                    value="{{ \Illuminate\Support\Facades\Auth::user()->id }}">
                             @endif
                             <div class="col-12 form-group mg-t-8">
-                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Lưu</button>
+                                <button type="submit"
+                                    class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Lưu</button>
                             </div>
                         </div>
                     </form>
@@ -149,5 +160,4 @@
     <script src="{{ asset('public/js/buttons.html5.min.js') }}"></script>
     <!-- Custom Js -->
     <script src="{{ asset('public/js/main.js') }}"></script>
-
 @endsection
