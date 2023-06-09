@@ -165,6 +165,7 @@ class XeController extends Controller
     public function lichsusua($xe_id){
         $xe = DB::table('tbl_xe')
             ->join('tbl_loaixe','tbl_loaixe.loaixe_id','=','tbl_xe.loaixe')
+            ->join('tbl_hangxe','tbl_hangxe.hangxe_id','=','tbl_xe.hangxe')
             ->where('xe_id', '=', $xe_id)
             ->get();
 

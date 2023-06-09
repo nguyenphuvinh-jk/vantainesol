@@ -37,15 +37,17 @@
                     <div class="heading-layout1 d-flex justify-content-sm-center pb-5">
                         <div class="item-title text-center">
                             <h3>Lịch sử sửa chữa/bảo dưỡng</h3>
-                            @foreach($xe as $key => $xe)
-                            <p class="text-center">Xe: {{$xe->biensoxe}} / Loại: {{$xe->ten_loaixe}} / Hãng: {{$xe->biensoxe}}</p>
+                            @foreach ($xe as $key => $xe)
+                                <p class="text-center">Xe: {{ $xe->biensoxe }} / Loại: {{ $xe->ten_loaixe }} / Hãng:
+                                    {{ $xe->ten_hangxe }}</p>
                             @endforeach
                         </div>
                     </div>
                     <form class="mg-b-20">
                         <div class="row gutters-8 d-flex justify-content-end">
                             <div class="col-lg-2 col-12 form-group">
-                                <a href="#" class="fw-btn-fill btn-gradient-yellow text-center text-white" id="btn_suachua">Tải xuống</a>
+                                <a href="#" class="fw-btn-fill btn-gradient-yellow text-center text-white"
+                                    id="btn_suachua">Tải xuống</a>
                             </div>
                             <div class="col-lg-4 col-12 form-group">
                             </div>
@@ -57,29 +59,29 @@
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap" id="suachua_table">
                             <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>ID sửa chữa</th>
-                                <th>Ngày sửa</th>
-                                <th>Nơi sửa</th>
-                                <th>Nội dung sửa</th>
-                                <th>Tổng tiền</th>
-                                <th>Ghi chú</th>
-                            </tr>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>ID sửa chữa</th>
+                                    <th>Ngày sửa</th>
+                                    <th>Nơi sửa</th>
+                                    <th>Nội dung sửa</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Ghi chú</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @php($i=1)
-                            @foreach($suachua as $key => $sua)
-                                <tr>
-                                    <td>{{$i++}}</td>
-                                    <td>{{$sua->suachua_id}}</td>
-                                    <td>{{ \Carbon\Carbon::parse($sua->ngaysua)->format('d/m/Y') }}</td>
-                                    <td>{{$sua->noisua}}</td>
-                                    <td>{!! nl2br($sua->noidung)!!}</td>
-                                    <td>{{$sua->tongtien}}</td>
-                                    <td>{{$sua->ghichu}}</td>
-                                </tr>
-                            @endforeach
+                                @php($i = 1)
+                                @foreach ($suachua as $key => $sua)
+                                    <tr>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $sua->suachua_id }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($sua->ngaysua)->format('d/m/Y') }}</td>
+                                        <td>{{ $sua->noisua }}</td>
+                                        <td>{!! nl2br($sua->noidung) !!}</td>
+                                        <td>{{ $sua->tongtien }}</td>
+                                        <td>{{ $sua->ghichu }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -133,18 +135,17 @@
                     exportOptions: {
                         columns: 'th:not(:last-child)'
                     }
-                }
-                ]
+                }]
             });
 
             oTable.buttons('.buttonsToHide').nodes().addClass('hidden');
 
             $("#btn_suachua").on("click", function() {
-                oTable.button( '.buttons-excel' ).trigger();
+                oTable.button('.buttons-excel').trigger();
             });
 
-            $('#suachua_search').keyup(function(){
-                oTable.search($(this).val()).draw() ;
+            $('#suachua_search').keyup(function() {
+                oTable.search($(this).val()).draw();
             })
         }
     </script>
