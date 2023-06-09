@@ -43,10 +43,12 @@
                     <form class="mg-b-20">
                         <div class="row gutters-8 d-flex justify-content-end">
                             <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
-                                <a href="{{URL::to('/quan-ly-van-chuyen/hoa-don-van-chuyen/them')}}" class="btn fw-btn-fill btn-gradient-yellow text-white">Thêm</a>
+                                <a href="{{ URL::to('/quan-ly-van-chuyen/hoa-don-van-chuyen/them') }}"
+                                    class="btn fw-btn-fill btn-gradient-yellow text-white">Thêm</a>
                             </div>
                             <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
-                                <a href="#" class="btn fw-btn-fill btn-gradient-yellow text-white" id="btn_hoadon">Tải xuống</a>
+                                <a href="#" class="btn fw-btn-fill btn-gradient-yellow text-white" id="btn_hoadon">Tải
+                                    xuống</a>
                             </div>
                             <div class="col-6-xxxl col-xl-3 col-lg-3 col-12 form-group">
                             </div>
@@ -58,81 +60,91 @@
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap" id="hoadon-table">
                             <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>ID</th>
-                                <th>Khách hàng</th>
-                                <th>Mã đơn hàng</th>
-                                <th>Ngày hoàn thành</th>
-                                <th>Phí thuê xe</th>
-                                <th>Phí phát nâng</th>
-                                <th>Phí hạ</th>
-                                <th>Phí xếp dỡ</th>
-                                <th>Phí giấy tờ</th>
-                                <th>Phí lưu ca</th>
-                                <th>Phí handing</th>
-                                <th>Phí khác</th>
-                                <th>Thuế GTGT</th>
-                                <th>Tổng tiền</th>
-                                <th>Đã thanh toán</th>
-                                <th>Còn nợ</th>
-                                <th>Ghi chú</th>
-                                <th>Trạng thái</th>
-                                <th>Ngày tạo</th>
-                                <th>Ngày cập nhật</th>
-                                <th>Người cập nhật</th>
-                                <th>Thao tác</th>
-                            </tr>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>ID</th>
+                                    <th>Khách hàng</th>
+                                    <th>Mã đơn hàng</th>
+                                    <th>Ngày hoàn thành</th>
+                                    <th>Phí thuê xe</th>
+                                    <th>Phí phát nâng</th>
+                                    <th>Phí hạ</th>
+                                    <th>Phí xếp dỡ</th>
+                                    <th>Phí giấy tờ</th>
+                                    <th>Phí lưu ca</th>
+                                    <th>Phí handing</th>
+                                    <th>Phí khác</th>
+                                    <th>Thuế GTGT</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Đã thanh toán</th>
+                                    <th>Còn nợ</th>
+                                    <th>Ghi chú</th>
+                                    <th>Trạng thái</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Ngày cập nhật</th>
+                                    <th>Người cập nhật</th>
+                                    <th>Thao tác</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @php($i=1)
-                            @foreach($hoadon as $key => $hd)
-
-                            <tr class="<?php if ($hd->trangthai==0 && (strtotime ( '+30 day' , strtotime ( $hd->ngayketthuc ) ) - strtotime(\Carbon\Carbon::today()))/(24*60*60) <=5){ echo 'bg-danger';} ?>">
-                                <td>{{$i++}}</td>
-                                <td>{{$hd->hoadon_id}}</td>
-                                <td>{{$hd->ten_kh}}</td>
-                                <td>{{$hd->donhang_id}}</td>
-                                <td>{{ \Carbon\Carbon::parse($hd->ngayketthuc)->format('d/m/Y') }}</td>
-                                <td><?php echo number_format($hd->phithuexe)?></td>
-                                <td><?php echo number_format($hd->phinang)?></td>
-                                <td><?php echo number_format($hd->phiha)?></td>
-                                <td><?php echo number_format($hd->phixepdo)?></td>
-                                <td><?php echo number_format($hd->phigiayto)?></td>
-                                <td><?php echo number_format($hd->philuuca)?></td>
-                                <td><?php echo number_format($hd->handing)?></td>
-                                <td><?php echo number_format($hd->phikhac)?></td>
-                                <td>{{$hd->thue}}</td>
-                                <td><?php echo number_format($hd->tongtien)?></td>
-                                <td><?php echo number_format($hd->dathanhtoan)?></td>
-                                <td><?php echo number_format($hd->tongtien - $hd->dathanhtoan)?></td>
-                                <td>{{$hd->ghichu}}</td>
-                                @if($hd->trangthai == 0)
-                                    <td class="text-center">
-                                        <a class="btn btn-warning text-uppercase" href="{{URL::to('/quan-ly-van-chuyen/hoa-don-van-chuyen/active/'.$hd->hoadon_id)}}">Chưa thanh toán</a>
-                                    </td>
-                                @else
-                                    <td class="text-center">
-                                        <a class="btn btn-success text-uppercase" href="{{URL::to('/quan-ly-van-chuyen/hoa-don-van-chuyen/inactive/'.$hd->hoadon_id)}}">Đã thanh toán</a>
-                                    </td>
-                                @endif
-                                <td>{{ \Carbon\Carbon::parse($hd->created_at)->format('d/m/Y H:i:s') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($hd->updated_at)->format('d/m/Y H:i:s') }}</td>
-                                <td>{{$hd->name}}</td>
-                                <td>
-                                    <div class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                           aria-expanded="false">
-                                            <span class="flaticon-more-button-of-three-dots"></span>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a onclick="return confirm('Bạn có chắc muốn xoá?')" class="dropdown-item" href="{{URL::to('/quan-ly-van-chuyen/hoa-don-van-chuyen/xoa/'.$hd->hoadon_id)}}"><i class="fas fa-times text-orange-red"></i>Xóa</a>
-                                            <a class="dropdown-item" href="{{URL::to('/quan-ly-van-chuyen/hoa-don-van-chuyen/sua/'.$hd->hoadon_id)}}"><i class="fas fa-cogs text-dark-pastel-green"></i>Sửa</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
+                                @php($i = 1)
+                                @foreach ($hoadon as $key => $hd)
+                                    <tr class="<?php if ($hd->trangthai == 0 && (strtotime('+30 day', strtotime($hd->ngayketthuc)) - strtotime(\Carbon\Carbon::today())) / (24 * 60 * 60) <= 5) {
+                                        echo 'bg-danger';
+                                    } ?>">
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $hd->hoadon_id }}</td>
+                                        <td><a>{{ $hd->ten_kh }} </a></td>
+                                        <td>{{ $hd->donhang_id }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($hd->ngayketthuc)->format('d/m/Y') }}</td>
+                                        <td><?php echo number_format($hd->phithuexe); ?></td>
+                                        <td><?php echo number_format($hd->phinang); ?></td>
+                                        <td><?php echo number_format($hd->phiha); ?></td>
+                                        <td><?php echo number_format($hd->phixepdo); ?></td>
+                                        <td><?php echo number_format($hd->phigiayto); ?></td>
+                                        <td><?php echo number_format($hd->philuuca); ?></td>
+                                        <td><?php echo number_format($hd->handing); ?></td>
+                                        <td><?php echo number_format($hd->phikhac); ?></td>
+                                        <td>{{ $hd->thue }}</td>
+                                        <td><?php echo number_format($hd->tongtien); ?></td>
+                                        <td><?php echo number_format($hd->dathanhtoan); ?></td>
+                                        <td><?php echo number_format($hd->tongtien - $hd->dathanhtoan); ?></td>
+                                        <td>{{ $hd->ghichu }}</td>
+                                        @if ($hd->trangthai == 0)
+                                            <td class="text-center">
+                                                <a class="btn btn-warning text-uppercase"
+                                                    href="{{ URL::to('/quan-ly-van-chuyen/hoa-don-van-chuyen/active/' . $hd->hoadon_id) }}">Chưa
+                                                    thanh toán</a>
+                                            </td>
+                                        @else
+                                            <td class="text-center">
+                                                <a class="btn btn-success text-uppercase"
+                                                    href="{{ URL::to('/quan-ly-van-chuyen/hoa-don-van-chuyen/inactive/' . $hd->hoadon_id) }}">Đã
+                                                    thanh toán</a>
+                                            </td>
+                                        @endif
+                                        <td>{{ \Carbon\Carbon::parse($hd->created_at)->format('d/m/Y H:i:s') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($hd->updated_at)->format('d/m/Y H:i:s') }}</td>
+                                        <td>{{ $hd->name }}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    <span class="flaticon-more-button-of-three-dots"></span>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a onclick="return confirm('Bạn có chắc muốn xoá?')"
+                                                        class="dropdown-item"
+                                                        href="{{ URL::to('/quan-ly-van-chuyen/hoa-don-van-chuyen/xoa/' . $hd->hoadon_id) }}"><i
+                                                            class="fas fa-times text-orange-red"></i>Xóa</a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ URL::to('/quan-ly-van-chuyen/hoa-don-van-chuyen/sua/' . $hd->hoadon_id) }}"><i
+                                                            class="fas fa-cogs text-dark-pastel-green"></i>Sửa</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -180,18 +192,17 @@
                     exportOptions: {
                         columns: 'th:not(:last-child)'
                     }
-                }
-                ]
+                }]
             });
 
             oTable.buttons('.buttonsToHide').nodes().addClass('hidden');
 
             $("#btn_hoadon").on("click", function() {
-                oTable.button( '.buttons-excel' ).trigger();
+                oTable.button('.buttons-excel').trigger();
             });
 
-            $('#hoadon-search').keyup(function(){
-                oTable.search($(this).val()).draw() ;
+            $('#hoadon-search').keyup(function() {
+                oTable.search($(this).val()).draw();
             })
         }
     </script>
