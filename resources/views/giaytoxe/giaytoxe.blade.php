@@ -33,70 +33,82 @@
     <div class="row">
         <div class="col-4-xxxl col-12">
             <div class="card height-auto">
-                @if(isset($giaytoxe_edit))
+                @if (isset($giaytoxe_edit))
                     <div class="card-body">
-                        @foreach($giaytoxe_edit as $key => $gt_edit)
-                        <div class="heading-layout1">
-                            <div class="item-title">
-                                <h3>Sửa thông tin</h3>
-                                @include('components.errors')
-                            </div>
-                        </div>
-                        <form class="new-added-form text-dark" action="{{URL::to('/quan-ly-xe/giay-to-xe/capnhat/'.$gt_edit->giayto_id)}}" method="post">
-                            @csrf
-                            <div class="row">
-                                <div class="col-xl-12 col-lg-6 col-12 form-group">
-                                    <label>Loại giấy tờ</label>
-                                    <select class="select2" name="loaigiaytoxe">
-                                        <option value="">Chọn loại giấy tờ</option>
-                                        @foreach($loaigiayto as $key => $loaigt)
-                                            <option value="{{$loaigt->id}}" {{$gt_edit->loaigiayto == $loaigt->id ? 'selected': ''}}>{{$loaigt->tengiayto}}</option>
-                                        @endforeach
-                                    </select>
-                                    @if ($errors->has('loaigiaytoxe'))
-                                        <p class="text-danger font-italic">{{ $errors->first('loaigiaytoxe') }}</p>
-                                    @endif
-                                </div>
-                                <div class="col-xl-12 col-lg-6 col-12 form-group">
-                                    <label>Biển số xe</label>
-                                    <select class="select2" name="xe_id">
-                                        <option value="">Chọn biển số xe</option>
-                                        @foreach($xe as $key => $xe)
-                                            <option value="{{$xe->xe_id}}" {{$gt_edit->xe_id == $xe->xe_id ? 'selected': ''}}>{{$xe->biensoxe}}</option>
-                                        @endforeach
-                                    </select>
-                                    @if ($errors->has('xe_id'))
-                                        <p class="text-danger font-italic">{{ $errors->first('xe_id') }}</p>
-                                    @endif
-                                </div>
-                                <div class="col-xl-12 col-lg-6 col-12 form-group">
-                                    <label>Ngày cấp</label>
-                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker" data-position='bottom right' name="ngaycap" value="{{ \Carbon\Carbon::parse($gt_edit->ngaycap)->format('d/m/Y') }}">
-                                    <i class="far fa-calendar-alt"></i>
-                                    @if ($errors->has('ngaycap'))
-                                        <p class="text-danger font-italic">{{ $errors->first('ngaycap') }}</p>
-                                    @endif
-                                </div>
-                                <div class="col-xl-12 col-lg-6 col-12 form-group">
-                                    <label>Ngày hết hạn</label>
-                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker" data-position='bottom right' name="ngayhethan" value="{{ \Carbon\Carbon::parse($gt_edit->ngayhethan)->format('d/m/Y') }}">
-                                    <i class="far fa-calendar-alt"></i>
-                                    @if ($errors->has('ngayhethan'))
-                                        <p class="text-danger font-italic">{{ $errors->first('ngayhethan') }}</p>
-                                    @endif
-                                </div>
-                                <div class="col-xl-12 col-lg-6 col-12 form-group">
-                                    <label>Đơn vị cấp</label>
-                                    <input type="text" placeholder="" class="form-control" name="donvicap" value="{{$gt_edit->donvicap}}">
-                                    @if ($errors->has('donvicap'))
-                                        <p class="text-danger font-italic">{{ $errors->first('donvicap') }}</p>
-                                    @endif
-                                </div>
-                                <div class="col-12 form-group mg-t-8">
-                                    <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Lưu</button>
+                        @foreach ($giaytoxe_edit as $key => $gt_edit)
+                            <div class="heading-layout1">
+                                <div class="item-title">
+                                    <h3>Sửa thông tin</h3>
+                                    @include('components.errors')
                                 </div>
                             </div>
-                        </form>
+                            <form class="new-added-form text-dark"
+                                action="{{ URL::to('/quan-ly-xe/giay-to-xe/capnhat/' . $gt_edit->giayto_id) }}"
+                                method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-6 col-12 form-group">
+                                        <label>Loại giấy tờ</label>
+                                        <select class="select2" name="loaigiaytoxe">
+                                            <option value="">Chọn loại giấy tờ</option>
+                                            @foreach ($loaigiayto as $key => $loaigt)
+                                                <option value="{{ $loaigt->id }}"
+                                                    {{ $gt_edit->loaigiayto == $loaigt->id ? 'selected' : '' }}>
+                                                    {{ $loaigt->tengiayto }}</option>
+                                            @endforeach
+                                        </select>
+                                        @if ($errors->has('loaigiaytoxe'))
+                                            <p class="text-danger font-italic">{{ $errors->first('loaigiaytoxe') }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-xl-12 col-lg-6 col-12 form-group">
+                                        <label>Biển số xe</label>
+                                        <select class="select2" name="xe_id">
+                                            <option value="">Chọn biển số xe</option>
+                                            @foreach ($xe as $key => $xe)
+                                                <option value="{{ $xe->xe_id }}"
+                                                    {{ $gt_edit->xe_id == $xe->xe_id ? 'selected' : '' }}>
+                                                    {{ $xe->biensoxe }}</option>
+                                            @endforeach
+                                        </select>
+                                        @if ($errors->has('xe_id'))
+                                            <p class="text-danger font-italic">{{ $errors->first('xe_id') }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-xl-12 col-lg-6 col-12 form-group">
+                                        <label>Ngày cấp</label>
+                                        <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker"
+                                            data-position='bottom right' name="ngaycap"
+                                            value="{{ \Carbon\Carbon::parse($gt_edit->ngaycap)->format('d/m/Y') }}">
+                                        <i class="far fa-calendar-alt"></i>
+                                        @if ($errors->has('ngaycap'))
+                                            <p class="text-danger font-italic">{{ $errors->first('ngaycap') }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-xl-12 col-lg-6 col-12 form-group">
+                                        <label>Ngày hết hạn</label>
+                                        <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker"
+                                            data-position='bottom right' name="ngayhethan"
+                                            value="{{ \Carbon\Carbon::parse($gt_edit->ngayhethan)->format('d/m/Y') }}">
+                                        <i class="far fa-calendar-alt"></i>
+                                        @if ($errors->has('ngayhethan'))
+                                            <p class="text-danger font-italic">{{ $errors->first('ngayhethan') }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-xl-12 col-lg-6 col-12 form-group">
+                                        <label>Đơn vị cấp</label>
+                                        <input type="text" placeholder="" class="form-control" name="donvicap"
+                                            value="{{ $gt_edit->donvicap }}">
+                                        @if ($errors->has('donvicap'))
+                                            <p class="text-danger font-italic">{{ $errors->first('donvicap') }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="col-12 form-group mg-t-8">
+                                        <button type="submit"
+                                            class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Lưu</button>
+                                    </div>
+                                </div>
+                            </form>
                         @endforeach
                     </div>
                 @else
@@ -107,15 +119,16 @@
                                 @include('components.errors')
                             </div>
                         </div>
-                        <form class="new-added-form text-dark" action="{{URL::to('/quan-ly-xe/giay-to-xe/luu')}}" method="post">
+                        <form class="new-added-form text-dark" action="{{ URL::to('/quan-ly-xe/giay-to-xe/luu') }}"
+                            method="post">
                             @csrf
                             <div class="row">
                                 <div class="col-xl-12 col-lg-6 col-12 form-group">
                                     <label>Loại giấy tờ</label>
                                     <select class="select2" name="loaigiaytoxe">
                                         <option value="">Chọn loại giấy tờ</option>
-                                        @foreach($loaigiayto as $key => $loaigt)
-                                            <option value="{{$loaigt->id}}">{{$loaigt->tengiayto}}</option>
+                                        @foreach ($loaigiayto as $key => $loaigt)
+                                            <option value="{{ $loaigt->id }}">{{ $loaigt->tengiayto }}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('loaigiaytoxe'))
@@ -126,8 +139,8 @@
                                     <label>Biển số xe</label>
                                     <select class="select2" name="xe_id">
                                         <option value="">Chọn biển số xe</option>
-                                        @foreach($xe as $key => $xe)
-                                            <option value="{{$xe->xe_id}}">{{$xe->biensoxe}}</option>
+                                        @foreach ($xe as $key => $xe)
+                                            <option value="{{ $xe->xe_id }}">{{ $xe->biensoxe }}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('xe_id'))
@@ -136,7 +149,8 @@
                                 </div>
                                 <div class="col-xl-12 col-lg-6 col-12 form-group">
                                     <label>Ngày cấp</label>
-                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker" data-position='bottom right' name="ngaycap">
+                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker"
+                                        data-position='bottom right' name="ngaycap">
                                     <i class="far fa-calendar-alt"></i>
                                     @if ($errors->has('ngaycap'))
                                         <p class="text-danger font-italic">{{ $errors->first('ngaycap') }}</p>
@@ -144,7 +158,8 @@
                                 </div>
                                 <div class="col-xl-12 col-lg-6 col-12 form-group">
                                     <label>Ngày hết hạn</label>
-                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker" data-position='bottom right' name="ngayhethan">
+                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker"
+                                        data-position='bottom right' name="ngayhethan">
                                     <i class="far fa-calendar-alt"></i>
                                     @if ($errors->has('ngayhethan'))
                                         <p class="text-danger font-italic">{{ $errors->first('ngayhethan') }}</p>
@@ -158,7 +173,8 @@
                                     @endif
                                 </div>
                                 <div class="col-12 form-group mg-t-8">
-                                    <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Lưu</button>
+                                    <button type="submit"
+                                        class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Lưu</button>
                                 </div>
                             </div>
                         </form>
@@ -177,62 +193,69 @@
                     <form class="mg-b-20">
                         <div class="row gutters-8 d-flex justify-content-end">
                             <div class="col-lg-2 col-12 form-group">
-                                <a href="#" class="fw-btn-fill btn-gradient-yellow text-center text-white" id="btn_giaytoxe">Tải xuống</a>
+                                <a href="#" class="fw-btn-fill btn-gradient-yellow text-center text-white"
+                                    id="btn_giaytoxe">Tải xuống</a>
                             </div>
                             <div class="col-lg-4 col-12 form-group">
                             </div>
                             <div class="col-lg-6 col-12 form-group">
-                                <input type="text" placeholder="Tìm kiếm ...." class="form-control" id="giaytoxe_search">
+                                <input type="text" placeholder="Tìm kiếm ...." class="form-control"
+                                    id="giaytoxe_search">
                             </div>
                         </div>
                     </form>
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap" id="giaytoxe_table">
                             <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>ID</th>
-                                <th>Loại giấy tờ</th>
-                                <th>Biển số xe</th>
-                                <th>Ngày cấp</th>
-                                <th>Ngày hết hạn</th>
-                                <th>Đơn vị cấp</th>
-                                <th>Thời hạn</th>
-                                <th class="noExl">Thao tác</th>
-                            </tr>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>ID</th>
+                                    <th>Loại giấy tờ</th>
+                                    <th>Biển số xe</th>
+                                    <th>Ngày cấp</th>
+                                    <th>Ngày hết hạn</th>
+                                    <th>Đơn vị cấp</th>
+                                    <th>Thời hạn</th>
+                                    <th class="noExl">Thao tác</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @php($i=1)
-                            @foreach($giaytoxe as $key => $gtxe)
-                            <tr class="{{(strtotime($gtxe->ngayhethan) - strtotime(\Carbon\Carbon::today())/(24*60*60))<=30 ? 'bg-danger': ''}}">
-                                <td>{{$i++}}</td>
-                                <td>{{$gtxe->giayto_id}}</td>
-                                <td>{{$gtxe->tengiayto}}</td>
-                                <td>{{$gtxe->biensoxe}}</td>
-                                <td>{{ \Carbon\Carbon::parse($gtxe->ngaycap)->format('d/m/Y') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($gtxe->ngayhethan)->format('d/m/Y') }}</td>
-                                <td>{{$gtxe->donvicap}}</td>
-                                @if($gtxe->ngayhethan > \Carbon\Carbon::today())
-                                <td><?php echo 'Còn '.floor(strtotime($gtxe->ngayhethan) - strtotime(\Carbon\Carbon::today())/(24*60*60)).' ngày' ?></td>
-                                @else
-                                    <td>Hết hạn</td>
-                                @endif
-                                <td class="noExl">
-                                    <div class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                           aria-expanded="false">
-                                            <span class="flaticon-more-button-of-three-dots"></span>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a onclick="return confirm('Có chắc muốn xoá chưa?')" class="dropdown-item" href="{{URL::to('/quan-ly-xe/giay-to-xe/xoa/'.$gtxe->giayto_id)}}"><i
-                                                    class="fas fa-times text-orange-red"></i>Xóa</a>
-                                            <a class="dropdown-item" href="{{URL::to('/quan-ly-xe/giay-to-xe/sua/'.$gtxe->giayto_id)}}"><i
-                                                    class="fas fa-cogs text-dark-pastel-green"></i>Sửa</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
+                                @php($i = 1)
+                                @foreach ($giaytoxe as $key => $gtxe)
+                                    <tr <?php if (floor((strtotime($gtxe->ngayhethan) - strtotime(\Carbon\Carbon::today())) / (24 * 60 * 60)) <= 30) {
+                                        echo "style='background-color: #EE6B6E'";
+                                    } ?>>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $gtxe->giayto_id }}</td>
+                                        <td>{{ $gtxe->tengiayto }}</td>
+                                        <td>{{ $gtxe->biensoxe }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($gtxe->ngaycap)->format('d/m/Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($gtxe->ngayhethan)->format('d/m/Y') }}</td>
+                                        <td>{{ $gtxe->donvicap }}</td>
+                                        @if ($gtxe->ngayhethan > \Carbon\Carbon::today())
+                                            <td><?php echo 'Còn ' . floor((strtotime($gtxe->ngayhethan) - strtotime(\Carbon\Carbon::today())) / (24 * 60 * 60)) . ' ngày'; ?></td>
+                                        @else
+                                            <td>Hết hạn</td>
+                                        @endif
+                                        <td class="noExl">
+                                            <div class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    <span class="flaticon-more-button-of-three-dots"></span>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a onclick="return confirm('Có chắc muốn xoá chưa?')"
+                                                        class="dropdown-item"
+                                                        href="{{ URL::to('/quan-ly-xe/giay-to-xe/xoa/' . $gtxe->giayto_id) }}"><i
+                                                            class="fas fa-times text-orange-red"></i>Xóa</a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ URL::to('/quan-ly-xe/giay-to-xe/sua/' . $gtxe->giayto_id) }}"><i
+                                                            class="fas fa-cogs text-dark-pastel-green"></i>Sửa</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -283,18 +306,17 @@
                     exportOptions: {
                         columns: 'th:not(:last-child)'
                     }
-                }
-                ]
+                }]
             });
 
             oTable.buttons('.buttonsToHide').nodes().addClass('hidden');
 
             $("#btn_giaytoxe").on("click", function() {
-                oTable.button( '.buttons-excel' ).trigger();
+                oTable.button('.buttons-excel').trigger();
             });
 
-            $('#giaytoxe_search').keyup(function(){
-                oTable.search($(this).val()).draw() ;
+            $('#giaytoxe_search').keyup(function() {
+                oTable.search($(this).val()).draw();
             })
         }
     </script>
