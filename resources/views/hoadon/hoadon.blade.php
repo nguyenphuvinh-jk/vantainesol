@@ -27,6 +27,11 @@
     <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
     <!-- Modernize js -->
     <script src="{{ asset('public/js/modernizr-3.6.0.min.js') }}"></script>
+    <style>
+        a {
+            color: black;
+        }
+    </style>
 @endsection
 
 @section('contents')
@@ -94,7 +99,38 @@
                                     } ?>">
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $hd->hoadon_id }}</td>
-                                        <td><a>{{ $hd->ten_kh }} </a></td>
+                                        <td>
+                                            <a href="" data-toggle="modal"
+                                                data-target="#modal-{{ $hd->hoadon_id }}">{{ $hd->ten_kh }}</a>
+
+                                        </td>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modal-{{ $hd->hoadon_id }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Thông tin khách
+                                                            hàng</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>ID: {{ $hd->kh_id }}</p>
+                                                        <p>Tên khách hàng: {{ $hd->ten_kh }}</p>
+                                                        <p>SĐT: {{ $hd->sdt_kh }}</p>
+                                                        <p>Địa chỉ: {{ $hd->diachi_kh }}</p>
+                                                        <p>Mã số thuế: {{ $hd->masothue_kh }}</p>
+                                                        <p>Số fax: {{ $hd->fax_kh }}</p>
+                                                        <p>STK: {{ $hd->sotk_kh }} {{ $hd->ten_nganhang }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <td>{{ $hd->donhang_id }}</td>
                                         <td>{{ \Carbon\Carbon::parse($hd->ngayketthuc)->format('d/m/Y') }}</td>
                                         <td><?php echo number_format($hd->phithuexe); ?></td>

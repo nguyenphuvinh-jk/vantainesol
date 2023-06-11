@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\PhatSinhXe;
 use App\Xe;
 use App\LoaiXe;
 use App\LoaiHang;
 use Illuminate\Support\Facades\Log;
-use Session;
+use Symfony\Component\HttpFoundation\Session\Session;
 use App\Http\Requests;
+use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 
@@ -94,7 +97,7 @@ class PhatSinhXeController extends Controller
 
     public function sua($phatsinhxe_id){
         $xe = Xe::orderBy('biensoxe', 'desc')->get();
-        $phatsinhxe_edit = phatsinhxe::where('phatsinhxe_id',$phatsinhxe_id)->get();
+        $phatsinhxe_edit = PhatSinhXe::where('phatsinhxe_id',$phatsinhxe_id)->get();
         return view('phatsinhxe.sua')->with(compact('phatsinhxe_edit', 'xe'));
     }
 

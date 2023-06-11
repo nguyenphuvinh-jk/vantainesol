@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Session;
 use Carbon\Carbon;
 use App\Http\Requests;
+use App\KhachHang;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 
@@ -17,7 +18,7 @@ class HoaDonController extends Controller
 {
     public function index(){
         $hoadon = DB::table('tbl_donhang')
-            ->select('tbl_hoadon.*', 'tbl_khachhang.ten_kh', 'tbl_donhang.dh_id', 'tbl_donhang.ngayketthuc', 'users.name')
+            //->select('tbl_hoadon.*', 'tbl_khachhang.ten_kh', 'tbl_donhang.dh_id', 'tbl_donhang.ngayketthuc', 'users.name')
             ->join('tbl_khachhang', 'tbl_khachhang.kh_id', '=', 'tbl_donhang.donvi')
             ->join('tbl_hoadon', 'tbl_hoadon.donhang_id', '=', 'tbl_donhang.dh_id')
             ->join('users', 'users.id', '=', 'tbl_hoadon.nguoitao_hoadon')
