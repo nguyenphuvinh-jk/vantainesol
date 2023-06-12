@@ -194,7 +194,9 @@
             });
 
             $('#xe_search').keyup(function() {
-                oTable.search($(this).val()).draw();
+                var key = oTable.search($(this).val().trim());
+                //oTable.search($(this).val().trim()).draw();
+                key.draw();
             })
         }
     </script>

@@ -193,7 +193,7 @@
                             <div class="col-lg-4 col-12 form-group">
                             </div>
                             <div class="col-lg-6 col-12 form-group">
-                                <input type="text" placeholder="Tìm kiếm ...." class="form-control"
+                                <input type="text" placeholder="Tìm kiếm..." class="form-control"
                                     id="hopdong_search">
                             </div>
                         </div>

@@ -52,7 +52,8 @@
                             <div class="col-lg-4 col-12 form-group">
                             </div>
                             <div class="col-lg-6 col-12 form-group">
-                                <input type="text" placeholder="Tìm kiếm ...." class="form-control" id="suachua_search">
+                                <input type="text" placeholder="Tìm kiếm..." class="form-control" id="suachua_search"
+                                    hidden>
                             </div>
                         </div>
                     </form>
@@ -120,7 +121,7 @@
             oTable = $('#suachua_table').DataTable({
                 destroy: true,
                 paging: true,
-                searching: true,
+                searching: false,
                 info: false,
                 lengthChange: false,
                 lengthMenu: [20, 50, 75, 100],
