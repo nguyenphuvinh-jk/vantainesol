@@ -40,7 +40,8 @@
                             @include('components.errors')
                         </div>
                     </div>
-                    <form class="new-added-form text-dark" action="{{URL::to('/quan-ly-danh-muc/loai-giay-to-xe/luu')}}" method="post">
+                    <form class="new-added-form text-dark" action="{{ URL::to('/quan-ly-danh-muc/loai-giay-to-xe/luu') }}"
+                        method="post">
                         @csrf
                         <div class="row">
                             <div class="col-12-xxxl col-lg-6 col-12 form-group">
@@ -51,7 +52,8 @@
                                 @endif
                             </div>
                             <div class="col-12 form-group mg-t-8">
-                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Lưu</button>
+                                <button type="submit"
+                                    class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Lưu</button>
                             </div>
                         </div>
                     </form>
@@ -63,7 +65,7 @@
                 <div class="card-body">
                     <div class="heading-layout1">
                         <div class="item-title">
-                            <h3>Danh sách khoảng cách</h3>
+                            <h3>Danh sách loại giấy tờ xe</h3>
                         </div>
                     </div>
                     <form class="mg-b-20">
@@ -71,24 +73,27 @@
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap" id="loaigiayto_table">
                             <thead>
-                            <tr>
-                                <th>Mã</th>
-                                <th>Khoảng cách</th>
-                                <th>Thao tác</th>
-                            </tr>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Khoảng cách</th>
+                                    <th>Thao tác</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach($loaigiayto as $key => $kc)
-                            <tr>
-                                <td>{{$kc->id}}</td>
-                                <td>{{$kc->tengiayto}}</td>
-                                <td>
-                                    <div class="dropdown">
-                                        <a onclick="return confirm('Có chắc muốn xoá chưa?')" class="dropdown-item" href="{{URL::to('/quan-ly-danh-muc/loai-giay-to-xe/xoa/'.$kc->id)}}"><i class="fas fa-times text-orange-red"></i>Xóa</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
+                                @php($i = 1)
+                                @foreach ($loaigiayto as $key => $kc)
+                                    <tr>
+                                        <td><?php echo $i++; ?></td>
+                                        <td>{{ $kc->tengiayto }}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <a onclick="return confirm('Có chắc muốn xoá chưa?')" class="dropdown-item"
+                                                    href="{{ URL::to('/quan-ly-danh-muc/loai-giay-to-xe/xoa/' . $kc->id) }}"><i
+                                                        class="fas fa-times text-orange-red"></i>Xóa</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

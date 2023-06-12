@@ -49,12 +49,9 @@
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Biển số xe</label>
                                     <select class="select2" name="xe_id">
-                                        <option value="">Chọn biển số</option>
-                                        @foreach ($xe as $key => $xe)
-                                            <option value="{{ $xe->xe_id }}"
-                                                {{ $ps_edit->xe_id == $xe->xe_id ? 'selected' : '' }}>{{ $xe->biensoxe }}
-                                            </option>
-                                        @endforeach
+                                        <option value="{{ $ps_edit->xe_id }}" @readonly(true) selected>
+                                            {{ $ps_edit->biensoxe }}
+                                        </option>
                                     </select>
                                     @if ($errors->has('xe_id'))
                                         <p class="text-danger font-italic">{{ $errors->first('xe_id') }}</p>
@@ -80,7 +77,7 @@
                                     <label>Ngày</label>
                                     <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker"
                                         data-position='bottom right' name="ngay"
-                                        value="{{ \Carbon\Carbon::parse($ps_edit->ngaysua)->format('d/m/Y') }}">
+                                        value="{{ \Carbon\Carbon::parse($ps_edit->ngay)->format('d/m/Y') }}">
                                     <i class="far fa-calendar-alt"></i>
                                     @if ($errors->has('ngay'))
                                         <p class="text-danger font-italic">{{ $errors->first('ngay') }}</p>
@@ -120,8 +117,8 @@
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Ghi chú </label>
-                                    <input type="text" placeholder="" class="form-control" name="ghichu"
-                                        value="{{ $ps_edit->ghichu }}">
+                                    <input type="text" placeholder="(Người thanh toán)" class="form-control"
+                                        name="ghichu" value="{{ $ps_edit->ghichu }}">
                                     @if ($errors->has('ghichu'))
                                         <p class="text-danger font-italic">{{ $errors->first('ghichu') }}</p>
                                     @endif

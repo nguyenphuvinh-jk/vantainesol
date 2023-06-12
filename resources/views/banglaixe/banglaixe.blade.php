@@ -210,7 +210,7 @@
                             <tbody>
                                 @php($i = 1)
                                 @foreach ($banglai as $key => $bl)
-                                    <tr <?php if (floor(strtotime($bl->ngayhethan) - strtotime(\Carbon\Carbon::today())) / (24 * 60 * 60) <= 30) {
+                                    <tr <?php if (floor(strtotime($bl->ngayhethan) - strtotime(\Carbon\Carbon::today())) / (24 * 60 * 60) <= $caidat->songay) {
                                         echo "style='background-color: #EE6B6E'";
                                     } ?>>
                                         <td>{{ $i++ }}</td>

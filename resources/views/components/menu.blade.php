@@ -127,6 +127,11 @@
                     class="nav-link {{ request()->is('tai-khoan*') ? 'menu-active' : '' }}"><i
                         class="flaticon-user"></i><span>Tài khoản</span></a>
             </li>
+            <li class="nav-item">
+                <a href="{{ URL::to('/cai-dat') }}"
+                    class="nav-link {{ request()->is('tai-khoan*') ? 'menu-active' : '' }}"><i
+                        class="flaticon-settings"></i><span>Cài đặt</span></a>
+            </li>
         @endif
     </ul>
 </div>

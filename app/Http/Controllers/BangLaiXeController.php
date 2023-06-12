@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\BangLai;
+use App\CaiDat;
 use App\TaiXe;
 use Session;
 use App\Http\Requests;
@@ -17,24 +18,26 @@ class BangLaiXeController extends Controller
 {
     public function index(){
         $taixe = TaiXe::all()->sortBy('ten_taixe');
+        $caidat = CaiDat::find(1);
         $banglai = DB::table('tbl_banglai')
             ->join('tbl_taixe', 'tbl_taixe.taixe_id', '=', 'tbl_banglai.taixe_id')
             ->orderBy('banglai_id', 'desc')
             ->get();
-        return view('banglaixe.banglaixe')->with(compact('taixe', 'banglai'));
+        return view('banglaixe.banglaixe')->with(compact('taixe', 'banglai', 'caidat'));
     }
 
     public function luu(Request $request){
         $request->validate([
             "tenbanglai" => "required",
             "taixe_id" => "required",
-            "ngaycap" => "required",
-            "ngayhethan" => "required",
+            "ngaycap" => "required|date_format:d/m/Y",
+            "ngayhethan" => "required|date_format:d/m/Y|after:ngaycap",
         ],[
             'tenbanglai.required' => 'Không được để trống',
             'taixe_id.required' => 'Không được để trống',
             'ngaycap.required' => 'Không được để trống',
             'ngayhethan.required' => 'Không được để trống',
+            'ngayhethan.after' => 'Ngày hết hạn phải sau ngày cấp'
         ]);
 
         try {
@@ -68,26 +71,28 @@ class BangLaiXeController extends Controller
 
     public function sua($banglai_id){
         $taixe = TaiXe::orderBy('ten_taixe', 'desc')->get();
+        $caidat = CaiDat::find(1);
         $banglai = DB::table('tbl_banglai')
             ->join('tbl_taixe', 'tbl_taixe.taixe_id', '=', 'tbl_banglai.taixe_id')
             ->orderBy('banglai_id', 'desc')
             ->get();
         $banglai_edit = banglai::where('banglai_id',$banglai_id)->get();
-        return view('banglaixe.banglaixe')->with(compact('banglai_edit', 'banglai', 'taixe'));
+        return view('banglaixe.banglaixe')->with(compact('banglai_edit', 'banglai', 'taixe', 'caidat'));
     }
 
     public function capnhat(Request $request,$banglai_id){
         $request->validate([
             "tenbanglai" => "required",
             "taixe_id" => "required",
-            "ngaycap" => "required",
-            "ngayhethan" => "required",
+            "ngaycap" => "required|date_format:d/m/Y",
+            "ngayhethan" => "required|date_format:d/m/Y|after:ngaycap",
 
         ],[
             'tenbanglai.required' => 'Không được để trống',
             'taixe_id.required' => 'Không được để trống',
             'ngaycap.required' => 'Không được để trống',
             'ngayhethan.required' => 'Không được để trống',
+            'ngayhethan.after' => 'Ngày hết hạn phải sau ngày cấp'
         ]);
 
         try {

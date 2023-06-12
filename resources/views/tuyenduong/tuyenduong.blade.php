@@ -40,7 +40,8 @@
                             @include('components.errors')
                         </div>
                     </div>
-                    <form class="new-added-form" action="{{URL::to('/quan-ly-danh-muc/tuyen-duong/luu')}}" method="post">
+                    <form class="new-added-form" action="{{ URL::to('/quan-ly-danh-muc/tuyen-duong/luu') }}"
+                        method="post">
                         @csrf
                         <div class="row">
                             <div class="col-12-xxxl col-lg-6 col-12 form-group">
@@ -51,7 +52,8 @@
                                 @endif
                             </div>
                             <div class="col-12 form-group mg-t-8">
-                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Lưu</button>
+                                <button type="submit"
+                                    class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Lưu</button>
                             </div>
                         </div>
                     </form>
@@ -71,24 +73,27 @@
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap" id="tuyenduong_table">
                             <thead>
-                            <tr>
-                                <th>Mã</th>
-                                <th>tuyến đường</th>
-                                <th>Thao tác</th>
-                            </tr>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>tuyến đường</th>
+                                    <th>Thao tác</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach($tuyenduong as $key => $tai)
-                            <tr>
-                                <td>{{$tai->tuyenduong_id}}</td>
-                                <td>{{$tai->ten_tuyenduong}}</td>
-                                <td>
-                                    <div class="dropdown">
-                                        <a onclick="return confirm('Có chắc muốn xoá chưa?')" class="dropdown-item" href="{{URL::to('/quan-ly-danh-muc/tuyen-duong/xoa/'.$tai->tuyenduong_id)}}"><i class="fas fa-times text-orange-red"></i>Xóa</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
+                                @php($i = 1)
+                                @foreach ($tuyenduong as $key => $tai)
+                                    <tr>
+                                        <td><?php echo $i++; ?></td>
+                                        <td>{{ $tai->ten_tuyenduong }}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <a onclick="return confirm('Có chắc muốn xoá chưa?')" class="dropdown-item"
+                                                    href="{{ URL::to('/quan-ly-danh-muc/tuyen-duong/xoa/' . $tai->tuyenduong_id) }}"><i
+                                                        class="fas fa-times text-orange-red"></i>Xóa</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

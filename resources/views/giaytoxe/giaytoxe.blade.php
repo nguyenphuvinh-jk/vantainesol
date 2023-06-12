@@ -222,7 +222,7 @@
                             <tbody>
                                 @php($i = 1)
                                 @foreach ($giaytoxe as $key => $gtxe)
-                                    <tr <?php if (floor((strtotime($gtxe->ngayhethan) - strtotime(\Carbon\Carbon::today())) / (24 * 60 * 60)) <= 30) {
+                                    <tr <?php if (floor((strtotime($gtxe->ngayhethan) - strtotime(\Carbon\Carbon::today())) / (24 * 60 * 60)) <= $caidat->songay) {
                                         echo "style='background-color: #EE6B6E'";
                                     } ?>>
                                         <td>{{ $i++ }}</td>

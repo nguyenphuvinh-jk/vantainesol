@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\CaiDat;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\PhatSinhXe;
+use Session;
 use App\Xe;
 use App\LoaiXe;
 use App\LoaiHang;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpFoundation\Session\Session;
 use App\Http\Requests;
 use Exception;
 use Illuminate\Contracts\View\View;
@@ -96,19 +97,22 @@ class PhatSinhXeController extends Controller
     }
 
     public function sua($phatsinhxe_id){
-        $xe = Xe::orderBy('biensoxe', 'desc')->get();
-        $phatsinhxe_edit = PhatSinhXe::where('phatsinhxe_id',$phatsinhxe_id)->get();
-        return view('phatsinhxe.sua')->with(compact('phatsinhxe_edit', 'xe'));
+        //$xe = Xe::orderBy('biensoxe', 'desc')->get();
+        $phatsinhxe_edit = DB::table('tbl_phatsinhxe')
+        ->join('tbl_xe', 'tbl_xe.xe_id', '=', 'tbl_phatsinhxe.xe_id')
+        ->where('tbl_phatsinhxe.phatsinhxe_id', $phatsinhxe_id)->get();
+        return view('phatsinhxe.sua')->with(compact('phatsinhxe_edit'));
     }
 
     public function capnhat(Request $request,$phatsinhxe_id){
+        $caidat = CaiDat::find(1);
         $request->validate([
             "xe_id" => "required",
             "km_batdau" => "required|numeric",
             "km_cuoi" => "required|numeric",
             "ngay" => "required",
             "cayxang" => "required",
-            "soluong" => "required|numeric",
+            "soluong" => "required|numeric|max:$caidat->solit",
             "dongia" => "required|numeric",
             "thanhtien" => "required|numeric",
         ],[
@@ -121,6 +125,7 @@ class PhatSinhXeController extends Controller
             'cayxang.required' => 'Không được để trống',
             'soluong.required' => 'Không được để trống',
             'soluong.numeric' => 'Chỉ được nhập số thực',
+            'soluong.max' => 'Đổ tối đa '. $caidat->solit .' lít',
             'dongia.required' => 'Không được để trống',
             'dongia.numeric' => 'Chỉ được nhập số thực',
             'thanhtien.required' => 'Không được để trống',

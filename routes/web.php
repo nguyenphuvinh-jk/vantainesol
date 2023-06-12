@@ -196,10 +196,8 @@ Route::get('/tai-khoan/mo-khoa/{taikhoan_id}', 'TaiKhoanController@mokhoa');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('fake-user', function (){
-    $user = new \App\User();
-    $user->name = 'Nguyen Vinh';
-    $user->email = 'nguyenvinh@gmail.com';
-    $user->password = bcrypt('1234567');
-    $user->save();
+// cai dat
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/cai-dat', 'CaiDatController@index');
+    Route::post('/cai-dat/luu', 'CaiDatController@luu');
 });

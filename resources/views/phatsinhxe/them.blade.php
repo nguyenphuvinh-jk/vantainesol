@@ -115,7 +115,7 @@
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Ghi chú </label>
-                                <input type="text" placeholder="(Người trả tiền)" class="form-control" name="ghichu"
+                                <input type="text" placeholder="(Người thanh toán)" class="form-control" name="ghichu"
                                     value="{{ old('ghichu') }}">
                                 @if ($errors->has('ghichu'))
                                     <p class="text-danger font-italic">{{ $errors->first('ghichu') }}</p>

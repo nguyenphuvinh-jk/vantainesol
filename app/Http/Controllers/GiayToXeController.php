@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CaiDat;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
@@ -20,24 +21,26 @@ class GiayToXeController extends Controller
     public function index(){
         $loaigiayto = LoaiGiayTo::orderBy('tengiayto', 'asc')->get();
         $xe = Xe::orderBy('biensoxe', 'asc')->get();
+        $caidat = CaiDat::find(1);
         $giaytoxe = DB::table('tbl_giaytoxe')
             ->join('tbl_loaigiayto', 'tbl_loaigiayto.id', '=', 'tbl_giaytoxe.loaigiayto')
             ->join('tbl_xe', 'tbl_xe.xe_id', '=', 'tbl_giaytoxe.xe_id')
             ->orderBy('giayto_id', 'desc')->get();
-        return view('giaytoxe.giaytoxe')->with(compact('giaytoxe', 'xe', 'loaigiayto'));
+        return view('giaytoxe.giaytoxe')->with(compact('giaytoxe', 'xe', 'loaigiayto', 'caidat'));
     }
 
     public function luu(Request $request){
         $request->validate([
             "loaigiaytoxe" => "required",
             "xe_id" => "required",
-            "ngaycap" => "required",
-            "ngayhethan" => "required",
+            "ngaycap" => "required|date_format:d/m/Y",
+            "ngayhethan" => "required|date_format:d/m/Y|after:ngaycap",
         ],[
             'loaigiaytoxe.required' => 'Không được để trống',
             'xe_id.required' => 'Không được để trống',
             'ngaycap.required' => 'Không được để trống',
             'ngayhethan.required' => 'Không được để trống',
+            'ngayhethan.after' => 'Ngày hết hạn phải sau ngày cấp'
         ]);
 
         try {
@@ -69,6 +72,7 @@ class GiayToXeController extends Controller
     }
 
     public function sua($giaytoxe_id){
+        $caidat = CaiDat::find(1);
         $loaigiayto = LoaiGiayTo::orderBy('tengiayto', 'asc')->get();
         $xe = Xe::orderBy('biensoxe', 'asc')->get();
         $giaytoxe = DB::table('tbl_giaytoxe')
@@ -76,20 +80,21 @@ class GiayToXeController extends Controller
             ->join('tbl_xe', 'tbl_xe.xe_id', '=', 'tbl_giaytoxe.xe_id')
             ->orderBy('giayto_id', 'desc')->get();
         $giaytoxe_edit = GiayToXe::where('giayto_id',$giaytoxe_id)->get();
-        return view('giaytoxe.giaytoxe')->with(compact('giaytoxe_edit', 'giaytoxe', 'xe', 'loaigiayto'));
+        return view('giaytoxe.giaytoxe')->with(compact('giaytoxe_edit', 'giaytoxe', 'xe', 'loaigiayto', 'caidat'));
     }
 
     public function capnhat(Request $request,$giaytoxe_id){
         $request->validate([
             "loaigiaytoxe" => "required",
             "xe_id" => "required",
-            "ngaycap" => "required",
-            "ngayhethan" => "required",
+            "ngaycap" => "required|date_format:d/m/Y",
+            "ngayhethan" => "required|date_format:d/m/Y|after:ngaycap",
         ],[
             'loaigiaytoxe.required' => 'Không được để trống',
             'xe_id.required' => 'Không được để trống',
             'ngaycap.required' => 'Không được để trống',
             'ngayhethan.required' => 'Không được để trống',
+            'ngayhethan.after' => 'Ngày hết hạn phải sau ngày cấp'
         ]);
 
         try {
